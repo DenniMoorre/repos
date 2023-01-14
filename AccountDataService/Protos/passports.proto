@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "passport";
+
+service GrpcPassport {
+    rpc GetAllPassports (GetAllRequest) returns (PassportResponse);
+}
+
+message GetAllRequest {}
+
+message GrpcPassportModel{
+    int32 passportId = 1;
+    string name = 2;
+    string publisher = 3;
+}
+
+message PassportResponse {
+    repeated GrpcPassportModel passport = 1;
+}
+

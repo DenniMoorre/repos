@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: passports-depl
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: passport
+  template:
+    metadata:
+      labels:
+        app: passport
+    spec:
+      containers:
+        - name: passport
+          image: wumiantruth/passport
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: passports-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: passport
+  ports:
+  - name: passport
+    protocol: TCP
+    port: 80
+    targetPort: 80
+  - name: passportgrpc
+    protocol: TCP
+    port: 666
+    targetPort: 666

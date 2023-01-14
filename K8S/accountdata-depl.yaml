@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accountdata-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accountdata
+  template:
+    metadata:
+      labels:
+        app: accountdata
+    spec:
+      containers:
+        - name: accountdata
+          image: wumiantruth/accountdata:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: accountdata-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: accountdata
+  ports:
+  - name: accountdata
+    protocol: TCP
+    port: 80
+    targetPort: 80 
